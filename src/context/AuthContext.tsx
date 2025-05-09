@@ -15,6 +15,7 @@ interface User {
   pseudo: string;
   email: string;
   avatar: string | null;
+  library: string[]; // Liste des IDs des items achetés
 }
 
 // Define auth context type
@@ -24,6 +25,7 @@ interface AuthContextType {
   logout: () => void;
   isLoading: boolean;
   error: string | null;
+  addToLibrary: (itemId: string) => Promise<void>;
 }
 
 // Create context with default values
@@ -32,7 +34,8 @@ const AuthContext = createContext<AuthContextType>({
   login: async () => {},
   logout: () => {},
   isLoading: false,
-  error: null
+  error: null,
+  addToLibrary: async () => {}
 });
 
 // Hook for using the auth context
@@ -72,6 +75,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Fonction pour ajouter un item à la bibliothèque
+  const addToLibrary = async (itemId: string) => {
+    if (!user) return;
+
+    try {
+      const userRef = doc(db, 'users', user.id);
+      const newLibrary = [...user.library, itemId];
+      
+      await setDoc(userRef, { library: newLibrary }, { merge: true });
+      setUser({ ...user, library: newLibrary });
+    } catch (err) {
+      console.error('Erreur lors de l\'ajout à la bibliothèque:', err);
+      setError('Erreur lors de l\'ajout à la bibliothèque');
+    }
+  };
+
   // Fonction pour créer ou mettre à jour le document utilisateur
   const createOrUpdateUserDoc = async (firebaseUser: FirebaseUser) => {
     const userRef = doc(db, 'users', firebaseUser.uid);
@@ -85,6 +104,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         pseudo: defaultName,
         email: firebaseUser.email,
         avatar: formatAvatarUrl(firebaseUser.photoURL, defaultName),
+        library: [],
         createdAt: new Date().toISOString()
       };
       
@@ -102,7 +122,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       email: firebaseUser.email!,
       name: userData?.name || 'Nouvel utilisateur',
       pseudo: userData?.pseudo || 'Nouvel utilisateur',
-      avatar: formatAvatarUrl(userData?.avatar || null, userData?.name || 'Nouvel utilisateur')
+      avatar: formatAvatarUrl(userData?.avatar || null, userData?.name || 'Nouvel utilisateur'),
+      library: userData?.library || []
     };
   };
 
@@ -156,7 +177,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     login,
     logout,
     isLoading,
-    error
+    error,
+    addToLibrary
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -3,9 +3,11 @@ import { motion } from 'framer-motion';
 import { ShoppingCartIcon, StarIcon, TagIcon } from 'lucide-react';
 import { getItems } from '../data/items';
 import type { CardItem } from '../data/items';
+import { useAuth } from '../context/AuthContext';
 
 const Marketplace: React.FC = () => {
   const [marketplaceItems, setItems] = useState<CardItem[]>([]);
+  const { user, addToLibrary } = useAuth();
 
   useEffect(() => {
     const loadItems = async () => {
@@ -14,6 +16,10 @@ const Marketplace: React.FC = () => {
     };
     loadItems();
   }, []);
+
+  const handleAddToLibrary = async (itemId: string) => {
+    await addToLibrary(itemId);
+  };
 
   return (
     <div className="p-6 bg-gray-50 min-h-[calc(100vh-4rem)] overflow-auto">
@@ -26,7 +32,7 @@ const Marketplace: React.FC = () => {
         <p className="text-gray-600">Découvrez et achetez des services supplémentaires pour votre hub</p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {marketplaceItems.map((item, index) => (
           <motion.div
             key={item.id}
@@ -64,10 +70,16 @@ const Marketplace: React.FC = () => {
                 <motion.button 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center px-3 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-lg"
+                  onClick={() => handleAddToLibrary(item.id)}
+                  disabled={user?.library.includes(item.id)}
+                  className={`flex items-center px-3 py-1.5 ${
+                    user?.library.includes(item.id)
+                      ? 'bg-green-600'
+                      : 'bg-blue-600'
+                  } text-white text-sm font-medium rounded-lg disabled:opacity-50 disabled:cursor-not-allowed`}
                 >
                   <ShoppingCartIcon size={16} className="mr-1" />
-                  Ajouter
+                  {user?.library.includes(item.id) ? 'Acheté' : 'Acheter'}
                 </motion.button>
               </div>
             </div>
