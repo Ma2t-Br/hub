@@ -26,7 +26,7 @@ const Sidebar: React.FC = () => {
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
-      className="w-64 bg-white border-r border-gray-200 h-[calc(100vh-4rem)] flex flex-col"
+      className="hidden sm:flex w-64 bg-white border-r border-gray-200 h-[calc(100vh-4rem)] flex-col"
     >
       <div className="flex-1 py-6 flex flex-col">
         <nav className="flex-1 px-4 space-y-2">
