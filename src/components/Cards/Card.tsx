@@ -7,7 +7,7 @@ interface CardProps {
   title: string;
   description: string;
   image: string;
-  link: string;
+  link: string | undefined;
 }
 
 const Card: React.FC<CardProps> = ({ title, description, image, link }) => {
@@ -23,7 +23,7 @@ const Card: React.FC<CardProps> = ({ title, description, image, link }) => {
       exit={{ opacity: 0, y: -20 }}
       className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow"
     >
-      <Link to={link} className="block h-full">
+      <Link to={link? link : ""} className="block h-full">
         <div className="aspect-video overflow-hidden bg-gray-200">
           <img 
             src={image} 

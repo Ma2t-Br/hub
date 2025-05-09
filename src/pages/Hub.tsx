@@ -63,7 +63,7 @@ const Hub: React.FC = () => {
               title={item.title}
               description={item.description}
               image={item.image}
-              link={item.link}
+              link={item.webAppUrl}
             />
           ))}
         </motion.div>

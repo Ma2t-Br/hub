@@ -10,6 +10,10 @@ export interface CardItem {
     rating: number;
     category: string;
     price: string;
+    detailedDescription?: string;
+    screenshots?: string[];
+    features?: string[];
+    webAppUrl?: string;
   }
 
 export const getItems = async (): Promise<CardItem[]> => {
@@ -36,7 +40,11 @@ export const getItems = async (): Promise<CardItem[]> => {
         link: data.link || '',
         rating: data.rating || 0,
         category: data.category || '',
-        price: data.price || 'No price'
+        price: data.price || 'No price',
+        detailedDescription: data.detailedDescription || '',
+        screenshots: data.screenshots || [],
+        features: data.features || [],
+        webAppUrl: data.webAppUrl || ''
       };
     });
 

@@ -4,6 +4,7 @@ import ProtectedRoute from './components/Utils/ProtectedRoute';
 import Login from './pages/Login';
 import Hub from './pages/Hub';
 import Marketplace from './pages/Marketplace';
+import Service from './pages/Service';
 
 function App() {
   return (
@@ -17,12 +18,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/hub" element={<Hub />} />
             <Route path="/marketplace" element={<Marketplace />} />
-            <Route path="/service/:id" element={
-              <div className="p-6">
-                <h2 className="text-2xl font-semibold text-gray-800">Service Page</h2>
-                <p className="text-gray-600 mt-2">Cette page est un exemple et serait développée dans une version future.</p>
-              </div>
-            } />
+            <Route path="/service/:id" element={<Service />} />
           </Route>
           
           {/* Redirect to login or hub based on auth status */}
