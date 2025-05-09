@@ -105,7 +105,7 @@ const LoginForm: React.FC = () => {
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-500">
-          Utilisez n'importe quelles valeurs d'email et mot de passe pour cette démo
+          Veuillez contacter un administrateur si vous ne possédez pas encore de compte
         </p>
       </div>
     </motion.div>

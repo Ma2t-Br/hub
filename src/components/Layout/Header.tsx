@@ -17,10 +17,10 @@ const Header: React.FC = () => {
       {user && (
         <div className="flex items-center space-x-4">
           <div className="text-sm text-gray-700 hidden sm:block">
-            Bienvenue, {user.name}
+            Hey, {user.name}
           </div>
           <img
-            src={user.avatar}
+            src={user.avatar ?? '/default-avatar.png'}
             alt={user.name}
             className="h-8 w-8 rounded-full object-cover border border-gray-200"
           />
