@@ -10,7 +10,7 @@ interface CardProps {
   link: string;
 }
 
-const Card: React.FC<CardProps> = ({ id, title, description, image, link }) => {
+const Card: React.FC<CardProps> = ({ title, description, image, link }) => {
   return (
     <motion.div
       whileHover={{ 

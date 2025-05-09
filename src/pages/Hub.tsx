@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Card from '../components/Cards/Card';
-import { cardItems } from '../data/mockData';
+import { getItems } from '../data/items';
+import type { CardItem } from '../data/items';
 
 const container = {
   hidden: { opacity: 0 },
@@ -14,6 +15,16 @@ const container = {
 };
 
 const Hub: React.FC = () => {
+  const [items, setItems] = useState<CardItem[]>([]);
+
+  useEffect(() => {
+    const loadItems = async () => {
+      const data = await getItems();
+      setItems(data);
+    };
+    loadItems();
+  }, []);
+
   return (
     <div className="p-6 bg-gray-50 min-h-[calc(100vh-4rem)] overflow-auto">
       <motion.div
@@ -31,7 +42,7 @@ const Hub: React.FC = () => {
         animate="show"
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
       >
-        {cardItems.map((item) => (
+        {items.map((item) => (
           <Card
             key={item.id}
             id={item.id}

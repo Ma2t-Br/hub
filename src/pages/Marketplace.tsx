@@ -1,47 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingCartIcon, StarIcon, TagIcon } from 'lucide-react';
-
-const marketplaceItems = [
-  {
-    id: '1',
-    name: 'Premium Analytics',
-    description: 'Advanced analytics with custom reports and dashboards',
-    price: '€49.99/month',
-    image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800',
-    category: 'Analytics',
-    rating: 4.8
-  },
-  {
-    id: '2',
-    name: 'Security Suite Pro',
-    description: 'Complete security solution with advanced threat protection',
-    price: '€79.99/month',
-    image: 'https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg?auto=compress&cs=tinysrgb&w=800',
-    category: 'Security',
-    rating: 4.9
-  },
-  {
-    id: '3',
-    name: 'DevOps Toolkit',
-    description: 'Streamline your development workflow with our integrated tools',
-    price: '€59.99/month',
-    image: 'https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=800',
-    category: 'Development',
-    rating: 4.7
-  },
-  {
-    id: '4',
-    name: 'Cloud Storage Plus',
-    description: 'Expanded storage solution with advanced features',
-    price: '€39.99/month',
-    image: 'https://images.pexels.com/photos/1148820/pexels-photo-1148820.jpeg?auto=compress&cs=tinysrgb&w=800',
-    category: 'Storage',
-    rating: 4.6
-  }
-];
+import { getItems } from '../data/items';
+import type { CardItem } from '../data/items';
 
 const Marketplace: React.FC = () => {
+  const [marketplaceItems, setItems] = useState<CardItem[]>([]);
+
+  useEffect(() => {
+    const loadItems = async () => {
+      const data = await getItems();
+      setItems(data);
+    };
+    loadItems();
+  }, []);
+
   return (
     <div className="p-6 bg-gray-50 min-h-[calc(100vh-4rem)] overflow-auto">
       <motion.div
@@ -65,14 +38,14 @@ const Marketplace: React.FC = () => {
             <div className="aspect-video overflow-hidden bg-gray-200">
               <img 
                 src={item.image} 
-                alt={item.name} 
+                alt={item.title} 
                 className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
               />
             </div>
             
             <div className="p-5">
               <div className="flex justify-between items-start mb-3">
-                <h3 className="text-lg font-semibold text-gray-800">{item.name}</h3>
+                <h3 className="text-lg font-semibold text-gray-800">{item.title}</h3>
                 <div className="flex items-center text-yellow-500">
                   <StarIcon size={16} className="fill-current" />
                   <span className="ml-1 text-sm font-medium">{item.rating}</span>

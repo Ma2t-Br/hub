@@ -33,6 +33,7 @@ const Header: React.FC = () => {
       
       {/* Menu hamburger pour mobile */}
       <button 
+        title=""
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         className="sm:hidden p-2"
       >
