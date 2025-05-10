@@ -9,7 +9,7 @@ const Login: React.FC = () => {
 
   // Redirect if already logged in
   if (user) {
-    return <Navigate to="/hub" replace />;
+    return <Navigate to="/hub/" replace />;
   }
 
   return (

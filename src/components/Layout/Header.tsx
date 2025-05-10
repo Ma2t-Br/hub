@@ -12,7 +12,7 @@ const Header: React.FC = () => {
   const menuItems = [
     {
       name: 'Centre de contrôle',
-      path: '/hub',
+      path: '/hub/',
       icon: <HomeIcon size={20} />,
     },
     {

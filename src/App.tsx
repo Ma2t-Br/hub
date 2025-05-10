@@ -16,7 +16,7 @@ function App() {
           
           {/* Protected routes */}
           <Route element={<ProtectedRoute />}>
-            <Route path="/hub" element={<Hub />} />
+            <Route path="/hub/" element={<Hub />} />
             <Route path="/marketplace" element={<Marketplace />} />
             <Route path="/service/:id" element={<Service />} />
           </Route>

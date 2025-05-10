@@ -11,7 +11,7 @@ const Sidebar: React.FC = () => {
   const sidebarItems = [
     {
       name: 'Centre de contrôle',
-      path: '/hub',
+      path: '/hub/',
       icon: <HomeIcon size={20} />,
     },
     {
