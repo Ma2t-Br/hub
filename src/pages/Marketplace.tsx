@@ -37,7 +37,7 @@ const Marketplace: React.FC = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {marketplaceItems.map((item, index) => (
-          <Link to={`/service/${item.id}`} key={item.id}>
+          <Link to={`/hub/service/${item.id}`} key={item.id}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

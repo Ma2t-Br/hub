@@ -40,7 +40,7 @@ const Card: React.FC<CardProps> = ({ id, title, description, image, link, onRemo
           <Trash2Icon size={16} />
         </button>
       )}
-      <Link to={link? link : ""} className="block h-full">
+      <Link to={link ? link : ""} className="block h-full">
         <div className="aspect-video overflow-hidden bg-gray-200">
           <img 
             src={image} 

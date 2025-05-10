@@ -46,7 +46,7 @@ const Service: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* En-tête avec navigation */}
         <div className="mb-8">
-          <Link to="/marketplace" className="inline-flex items-center text-blue-600 hover:text-blue-800">
+          <Link to="/hub/marketplace" className="inline-flex items-center text-blue-600 hover:text-blue-800">
             <ChevronLeftIcon size={20} className="mr-1" />
             Retour à la marketplace
           </Link>

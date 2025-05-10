@@ -17,7 +17,7 @@ const Header: React.FC = () => {
     },
     {
       name: 'Marketplace',
-      path: '/marketplace',
+      path: '/hub/marketplace',
       icon: <ShoppingBagIcon size={20} />,
     },
   ];

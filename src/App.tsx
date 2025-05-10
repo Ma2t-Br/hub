@@ -17,8 +17,8 @@ function App() {
           {/* Protected routes */}
           <Route element={<ProtectedRoute />}>
             <Route path="/hub/" element={<Hub />} />
-            <Route path="/marketplace" element={<Marketplace />} />
-            <Route path="/service/:id" element={<Service />} />
+            <Route path="/hub/marketplace" element={<Marketplace />} />
+            <Route path="/hub/service/:id" element={<Service />} />
           </Route>
           
           {/* Redirect to login or hub based on auth status */}
