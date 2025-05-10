@@ -40,7 +40,7 @@ const Card: React.FC<CardProps> = ({ id, title, description, image, link, onRemo
           <Trash2Icon size={16} />
         </button>
       )}
-      <Link to={link ? link : ""} className="block h-full">
+      <a href={link ? link : ""} target="_blank" rel="noopener noreferrer" className="block h-full">
         <div className="aspect-video overflow-hidden bg-gray-200">
           <img 
             src={image} 
@@ -53,7 +53,7 @@ const Card: React.FC<CardProps> = ({ id, title, description, image, link, onRemo
           <h3 className="text-lg font-semibold text-gray-800 mb-2">{title}</h3>
           <p className="text-gray-600 text-sm line-clamp-3">{description}</p>
         </div>
-      </Link>
+      </a>
     </motion.div>
   );
 };
