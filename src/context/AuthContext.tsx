@@ -26,6 +26,7 @@ interface AuthContextType {
   isLoading: boolean;
   error: string | null;
   addToLibrary: (itemId: string) => Promise<void>;
+  removeFromLibrary: (itemId: string) => Promise<void>;
 }
 
 // Create context with default values
@@ -35,7 +36,8 @@ const AuthContext = createContext<AuthContextType>({
   logout: () => {},
   isLoading: false,
   error: null,
-  addToLibrary: async () => {}
+  addToLibrary: async () => {},
+  removeFromLibrary: async () => {}
 });
 
 // Hook for using the auth context
@@ -88,6 +90,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (err) {
       console.error('Erreur lors de l\'ajout à la bibliothèque:', err);
       setError('Erreur lors de l\'ajout à la bibliothèque');
+    }
+  };
+
+  // Fonction pour retirer un item de la bibliothèque
+  const removeFromLibrary = async (itemId: string) => {
+    if (!user) return;
+
+    try {
+      const userRef = doc(db, 'users', user.id);
+      const newLibrary = user.library.filter(id => id !== itemId);
+      
+      await setDoc(userRef, { library: newLibrary }, { merge: true });
+      setUser({ ...user, library: newLibrary });
+    } catch (err) {
+      console.error('Erreur lors de la suppression de la bibliothèque:', err);
+      setError('Erreur lors de la suppression de la bibliothèque');
     }
   };
 
@@ -178,7 +196,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     logout,
     isLoading,
     error,
-    addToLibrary
+    addToLibrary,
+    removeFromLibrary
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

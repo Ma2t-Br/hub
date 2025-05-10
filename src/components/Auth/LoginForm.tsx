@@ -87,7 +87,9 @@ const LoginForm: React.FC = () => {
               animate={{ opacity: 1, height: 'auto' }}
               className="bg-red-50 border-l-4 border-red-500 p-4 rounded"
             >
-              <p className="text-sm text-red-700">{error}</p>
+              <p className="text-sm text-red-700">
+                {error == "Firebase: Error (auth/invalid-credential)." ? "L'identifiant ou le mot de passe est incorrect.": error}
+              </p>
             </motion.div>
           )}
 

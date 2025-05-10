@@ -17,7 +17,7 @@ const container = {
 
 const Hub: React.FC = () => {
   const [items, setItems] = useState<CardItem[]>([]);
-  const { user } = useAuth();
+  const { user, removeFromLibrary } = useAuth();
 
   useEffect(() => {
     const loadItems = async () => {
@@ -28,6 +28,10 @@ const Hub: React.FC = () => {
     };
     loadItems();
   }, [user?.library]); // Recharger quand la bibliothèque change
+
+  const handleRemoveFromHub = async (itemId: string) => {
+    await removeFromLibrary(itemId);
+  };
 
   return (
     <div className="p-6 bg-gray-50 min-h-[calc(100vh-4rem)] overflow-auto">
@@ -64,6 +68,7 @@ const Hub: React.FC = () => {
               description={item.description}
               image={item.image}
               link={item.webAppUrl}
+              onRemove={handleRemoveFromHub}
             />
           ))}
         </motion.div>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { StarIcon, ExternalLinkIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import { StarIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { getItems } from '../data/items';
 import type { CardItem } from '../data/items';
 

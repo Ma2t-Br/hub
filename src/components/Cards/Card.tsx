@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Trash2Icon } from 'lucide-react';
 
 interface CardProps {
   id: string;
@@ -8,9 +9,16 @@ interface CardProps {
   description: string;
   image: string;
   link: string | undefined;
+  onRemove?: (id: string) => void;
 }
 
-const Card: React.FC<CardProps> = ({ title, description, image, link }) => {
+const Card: React.FC<CardProps> = ({ id, title, description, image, link, onRemove }) => {
+  const handleRemove = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onRemove?.(id);
+  };
+
   return (
     <motion.div
       whileHover={{ 
@@ -21,8 +29,17 @@ const Card: React.FC<CardProps> = ({ title, description, image, link }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow"
+      className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow relative"
     >
+      {onRemove && (
+        <button
+          onClick={handleRemove}
+          className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors z-10"
+          title="Retirer du hub"
+        >
+          <Trash2Icon size={16} />
+        </button>
+      )}
       <Link to={link? link : ""} className="block h-full">
         <div className="aspect-video overflow-hidden bg-gray-200">
           <img 
